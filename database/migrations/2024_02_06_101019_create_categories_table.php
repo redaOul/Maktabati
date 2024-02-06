@@ -11,13 +11,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('categories', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('nom');
-            $table->string('email')->unique();
-            $table->string('usertype');
-            $table->string('telephone')->unique();
-            $table->string('mdp');
+            $table->string('nom')->unique();
+            $table->string('image');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -28,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('categories');
     }
 };

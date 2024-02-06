@@ -11,13 +11,17 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('users', function (Blueprint $table) {
+        Schema::create('books', function (Blueprint $table) {
             $table->id()->autoIncrement();
-            $table->string('nom');
-            $table->string('email')->unique();
-            $table->string('usertype');
-            $table->string('telephone')->unique();
-            $table->string('mdp');
+            $table->string('titre');
+            $table->string('auteur');
+            $table->string('editeur');
+            $table->string('image');
+            $table->string('description');
+            $table->integer('quantite');
+            $table->integer('reservedQte');
+            $table->foreignId('bibliothecaireFK')->constrained('users', 'id');
+            $table->foreignId('categorieFK')->constrained('categories', 'id');
             $table->timestamp('created_at')->useCurrent();
             $table->timestamp('updated_at')->useCurrent()->useCurrentOnUpdate();
         });
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('books');
     }
 };
