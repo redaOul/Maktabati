@@ -2,11 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Session;
-
+use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\loginControllers;
 use App\Http\Controllers\AccueilControllers;
 use App\Http\Controllers\DashboardControllers;
 use App\Http\Controllers\sessionControllers;
+use App\Mail\reminderMail;
 
 /*
 |--------------------------------------------------------------------------
@@ -61,7 +62,10 @@ Route::post('/controllers/Dashboard/addBook', [DashboardControllers::class, 'add
 Route::post('/controllers/Dashboard/addCategorie', [DashboardControllers::class, 'addCategorie']);
 Route::get('/controllers/Dashboard/deleteBook/{bookId}', [DashboardControllers::class, 'deleteBook']);
 
-
+Route::get('/controllers/Mail/reminderMail/{recieverEmail}/{recieverName}/{bookName}', function ($recieverEmail, $recieverName, $bookName){
+    Mail::to($recieverEmail, $recieverName)->send( new reminderMail($recieverEmail, $recieverName, $bookName));
+    return redirect('/Accueil');
+});
 
 
 Route::get('/dsf', function (){
